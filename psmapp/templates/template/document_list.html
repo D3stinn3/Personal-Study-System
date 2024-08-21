@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Documents</h2>
+
+<ul>
+    {% for document in documents %}
+        <li>{{ document.file.name }} (Subject: {{ document.subject.name }})</li>
+    {% empty %}
+        <li>No documents uploaded yet.</li>
+    {% endfor %}
+</ul>
+
+<h2>Recommended Documents</h2>
+
+<ul>
+    {% for document in recommended_documents %}
+        <li>{{ document.file.name }} (Subject: {{ document.subject.name }})</li>
+    {% empty %}
+        <li>No recommendations available.</li>
+    {% endfor %}
+</ul>
+
+<h2>Suggest a New Subject</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ suggestion_form.as_p }}
+    <button type="submit">Submit Suggestion</button>
+</form>
+
+{% endblock %}

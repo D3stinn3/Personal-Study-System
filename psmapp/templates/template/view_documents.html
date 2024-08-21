@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static tailwind_tags %}
+
+{% block content %}
+    <h2 class="text-2xl font-bold mb-4">Your Documents</h2>
+
+    <ul class="list-disc pl-6">
+        {% for document in documents %}
+            <li class="mb-3">
+                <div class="flex items-center justify-between">
+                    <span class="font-semibold">{{ document.file.name }}</span>
+                    <span class="text-gray-600">{{ document.subject.name }}</span>
+
+                    <!-- Download Link -->
+                    <a href="{{ document.file.url }}" download="{{ document.file.name }}" class="text-blue-500 hover:underline">
+                        Download
+                    </a>
+                </div>
+
+                <!-- Embed document for viewing if it's a PDF -->
+                {% if document.is_pdf %}
+                    <div class="mt-4">
+                        <iframe src="{{ document.file.url }}" width="100%" height="500px"></iframe>
+                    </div>
+                {% endif %}
+            </li>
+        {% empty %}
+            <p class="text-gray-600">No documents uploaded yet.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+
+
+
